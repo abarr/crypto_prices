@@ -8,7 +8,7 @@ Thank you for your interest in applying to Oxygen!
 
 We use asdf to manage deps. This is a Phoenix 1.6.0 project, using Postgres for the database.
 
-This take-home should be completed in no more than 2 hours. In order of importance, here are
+This take-home should be completed in no more than 5 hours. In order of importance, here are
 the things we are looking for:
 
 1. Is the solution complete and functional?
