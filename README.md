@@ -21,7 +21,10 @@ the things we are looking for:
 ```
 asdf install
 mix deps.get
-mix phx.server
+cd assets
+npm install
+cd ..
+iex -S mix phx.server
 ```
 
 ## Tasks
