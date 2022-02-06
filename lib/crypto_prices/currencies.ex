@@ -53,6 +53,7 @@ defmodule Crypto.Currencies do
     %Currency{}
     |> Currency.changeset(attrs)
     |> Repo.insert()
+
   end
 
   @doc """
