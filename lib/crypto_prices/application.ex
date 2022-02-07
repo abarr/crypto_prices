@@ -14,6 +14,8 @@ defmodule Crypto.Application do
       CryptoWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Crypto.PubSub},
+      # Start coin servers Supervisor
+      {Crypto.Currencies.Supervisor, name: Crypto.Currencies.Supervisor},
       # Start the Endpoint (http/https)
       CryptoWeb.Endpoint
       # Start a worker by calling: Crypto.Worker.start_link(arg)
