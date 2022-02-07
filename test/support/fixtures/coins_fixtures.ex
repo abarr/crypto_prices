@@ -13,9 +13,10 @@ defmodule Crypto.CoinsFixtures do
       |> Enum.into(%{
         name: "some name",
         price: :spot,
-        ticker: "some ticker"
+        ticker: "some ticker",
+        interval: 5000
       })
-      |> Crypto.Coins.create_coin()
+      |> Crypto.Currencies.create_coin()
 
     coin
   end

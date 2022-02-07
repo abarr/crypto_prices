@@ -8,12 +8,13 @@ defmodule Crypto.CurrenciesFixtures do
   Generate a currency.
   """
   def currency_fixture(attrs \\ %{}) do
+    coin = Crypto.CoinsFixtures.coin_fixture()
     {:ok, currency} =
       attrs
       |> Enum.into(%{
         current_price: "120.5",
-        name: "some name",
-        priced_at: ~N[2021-09-17 01:39:00]
+        priced_at: ~N[2021-09-17 01:39:00],
+        coin_id:  coin.id
       })
       |> Crypto.Currencies.create_currency()
 

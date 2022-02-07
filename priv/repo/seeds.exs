@@ -1,9 +1,9 @@
 coins = [
-  %{name: "Bitcoin", ticker: "BTC-USD"},
-  %{name: "Ethereum", ticker: "ETH-USD"},
-  %{name: "Dogecoin", ticker: "DOGE-USD"}
+  %{name: "Bitcoin", ticker: "BTC-USD", interval: 5_000},
+  %{name: "Ethereum", ticker: "ETH-USD", interval: 5_000},
+  %{name: "Dogecoin", ticker: "DOGE-USD", interval: 5_000}
 ]
 
 for coin <- coins do
-  Crypto.Coins.create_coin(coin)
+  Crypto.Currencies.create_coin(coin)
 end

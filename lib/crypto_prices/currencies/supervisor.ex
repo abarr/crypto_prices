@@ -1,7 +1,9 @@
 defmodule Crypto.Currencies.Supervisor do
   use Supervisor
-  alias Crypto.Coins
+  alias Crypto.Currencies
   alias Crypto.Currencies.Server
+
+  @fields [:id, :name, :ticker, :price, :interval]
 
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, default_coins(), opts)
@@ -12,12 +14,12 @@ defmodule Crypto.Currencies.Supervisor do
     children =
       for coin <- coins do
 
-        {Server, [coin: Map.take(coin, [:name, :ticker, :price])]}
+        {Server, [coin: Map.take(coin, @fields)]}
       end
     Supervisor.init(children, strategy: :one_for_one)
   end
 
   defp default_coins() do
-    Coins.list_coins()
+    Currencies.list_coins()
   end
 end

@@ -13,6 +13,7 @@ defmodule Crypto.Repo.Migrations.CreateCoins do
       add :name, :string
       add :ticker, :string
       add :price, :string
+      add :interval, :integer
 
       timestamps()
     end

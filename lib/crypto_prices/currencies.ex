@@ -6,7 +6,9 @@ defmodule Crypto.Currencies do
   import Ecto.Query, warn: false
   alias Crypto.Repo
 
-  alias Crypto.Currencies.Currency
+  alias Crypto.Currencies.{Currency, Coin}
+
+  ###### CURRENCIES ######
 
   @doc """
   Returns the list of currencies.
@@ -56,50 +58,100 @@ defmodule Crypto.Currencies do
 
   end
 
-  @doc """
-  Updates a currency.
+
+  ###### COINS ######
+
+ @doc """
+  Returns the list of coins.
 
   ## Examples
 
-      iex> update_currency(currency, %{field: new_value})
-      {:ok, %Currency{}}
+      iex> list_coins()
+      [%Coin{}, ...]
 
-      iex> update_currency(currency, %{field: bad_value})
+  """
+  def list_coins do
+    Repo.all(Coin)
+  end
+
+  @doc """
+  Gets a single coin.
+
+  Raises `Ecto.NoResultsError` if the Coin does not exist.
+
+  ## Examples
+
+      iex> get_coin!(123)
+      %Coin{}
+
+      iex> get_coin!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_coin!(id), do: Repo.get!(Coin, id)
+
+  @doc """
+  Creates a coin.
+
+  ## Examples
+
+      iex> create_coin(%{field: value})
+      {:ok, %Coin{}}
+
+      iex> create_coin(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_currency(%Currency{} = currency, attrs) do
-    currency
-    |> Currency.changeset(attrs)
+  def create_coin(attrs \\ %{}) do
+    %Coin{}
+    |> Coin.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a coin.
+
+  ## Examples
+
+      iex> update_coin(coin, %{field: new_value})
+      {:ok, %Coin{}}
+
+      iex> update_coin(coin, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_coin(%Coin{} = coin, attrs) do
+    coin
+    |> Coin.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a currency.
+  Deletes a coin.
 
   ## Examples
 
-      iex> delete_currency(currency)
-      {:ok, %Currency{}}
+      iex> delete_coin(coin)
+      {:ok, %Coin{}}
 
-      iex> delete_currency(currency)
+      iex> delete_coin(coin)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_currency(%Currency{} = currency) do
-    Repo.delete(currency)
+  def delete_coin(%Coin{} = coin) do
+    Repo.delete(coin)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking currency changes.
+  Returns an `%Ecto.Changeset{}` for tracking coin changes.
 
   ## Examples
 
-      iex> change_currency(currency)
-      %Ecto.Changeset{data: %Currency{}}
+      iex> change_coin(coin)
+      %Ecto.Changeset{data: %Coin{}}
 
   """
-  def change_currency(%Currency{} = currency, attrs \\ %{}) do
-    Currency.changeset(currency, attrs)
+  def change_coin(%Coin{} = coin, attrs \\ %{}) do
+    Coin.changeset(coin, attrs)
   end
 end
