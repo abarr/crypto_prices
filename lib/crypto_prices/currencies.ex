@@ -8,6 +8,13 @@ defmodule Crypto.Currencies do
 
   alias Crypto.Currencies.{Currency, Coin}
 
+  ###### PUB SUB ######
+
+  def subscribe(topic) do
+    Phoenix.PubSub.subscribe(Crypto.PubSub, topic)
+  end
+
+
   ###### CURRENCIES ######
 
   @doc """
@@ -40,6 +47,24 @@ defmodule Crypto.Currencies do
   def get_currency!(id), do: Repo.get!(Currency, id)
 
   @doc """
+  Gets the most recent prices for the coins monitored
+  in list of coin id's
+
+  ## Examples
+
+      iex> get_latest_prices!(["67565dfaas6 ...", ...])
+     [%Currency{}, ...]
+  """
+  def get_latest_prices(list) do
+    Currency
+    |> where([c], c.coin_id in ^list)
+    |> distinct([c], c.coin_id)
+    |> order_by([c], desc: c.priced_at)
+    |> Repo.all()
+  end
+
+
+  @doc """
   Creates a currency.
 
   ## Examples
@@ -55,7 +80,7 @@ defmodule Crypto.Currencies do
     %Currency{}
     |> Currency.changeset(attrs)
     |> Repo.insert()
-
+    |> notify(attrs[:coin_id])
   end
 
 
@@ -153,5 +178,10 @@ defmodule Crypto.Currencies do
   """
   def change_coin(%Coin{} = coin, attrs \\ %{}) do
     Coin.changeset(coin, attrs)
+  end
+
+  defp notify(result, topic) do
+    Phoenix.PubSub.broadcast(Crypto.PubSub, to_string(topic), {topic, result})
+    result
   end
 end

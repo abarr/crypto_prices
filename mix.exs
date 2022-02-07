@@ -51,6 +51,7 @@ defmodule Crypto.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:req, "~> 0.2"},
+      {:number, "~> 1.0"}
     ]
   end
 
